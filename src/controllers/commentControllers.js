@@ -33,7 +33,7 @@ async function getComments(req, res) {
 
 async function deleteComments(req,res){
     await commentModel.find({_id:req.params.id}).deleteOne()
-    res.json({message:"comment deleted"})
+    res.json({message:"comment deleted",status:"success"})
 }
 
 

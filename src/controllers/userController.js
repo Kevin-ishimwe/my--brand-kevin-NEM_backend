@@ -26,7 +26,7 @@ async function getUsers(req, res) {
       err ? res.status(401).json({ error: err.message }) : res.json(data);
     });
   } else {
-    res.json({ error: 'not authorized to access data',status:"failed" });
+    res.json({ error: 'not authorized to access data', status: 'failed' });
   }
 }
 async function login(req, res) {
@@ -65,15 +65,20 @@ async function deleteUser(req, res) {
 }
 
 function authenticateToken(req, res, next) {
-  const authHeader = req.headers['authorization'];
+  const authHeader = req.headers['token'];
   const token = authHeader && authHeader.split(' ')[1];
+  console.log(token);
   if (token == null)
     return res
       .status(401)
       .json({ message: 'not authorized', status: 'failed' });
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-    req.user = user;
-    next();
+    if (err) {
+      res.status(401).json({ message: err.message, status: 'failed' });
+    } else {
+      req.user = user;
+      next();
+    }
   });
 }
 
