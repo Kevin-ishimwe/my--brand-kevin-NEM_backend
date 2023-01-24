@@ -77,6 +77,62 @@ const login = {
     },
   },
 };
+const updateuser = {
+  tags: ['users'],
+  description: 'update user in dbs',
+  parameters: [
+    {
+      name: 'email',
+      in: 'path',
+      description: 'email of user',
+      required: true,
+      type: 'string',
+      example: '63bdbc1451a42f4d46319e77',
+    },
+    {
+      in: 'header',
+      name: 'token',
+      description: 'token',
+      type: 'string',
+      required: true,
+      example: 'Bearer token',
+    },
+  ],
+  requestBody: {
+    content: {
+      'application/json': {
+        schema: {
+          type: 'object',
+          properties: {
+            password: {
+              type: 'string',
+              description: 'new password',
+              example: 'enter here',
+            },
+          },
+        },
+      },
+    },
+  },
+
+  responses: {
+    200: {
+      description: 'OK',
+      content: {
+        'application/json': {
+          schema: {
+            type: 'object',
+            example: {
+              message: 'sucessfullyupdated user ',
+              status: 'success',
+            },
+          },
+        },
+      },
+    },
+  },
+};
+
 const deleteuser = {
   tags: ['users'],
   description: 'delete user from dbs',
@@ -127,5 +183,8 @@ const userRouterDoc = {
   '/deleteuser/{email}': {
     delete: deleteuser,
   },
-}
+  '/updateuser/{email}': {
+    put: updateuser,
+  },
+};
 module.exports = userRouterDoc;

@@ -17,10 +17,10 @@ async function addUser(req, res) {
     res.json(user).status(201);
   } catch (err) {
     res.json({ error: err.message }).status(500);
-    next();
   }
 }
 async function getUsers(req, res) {
+  console.log(req.user);
   if (req.user) {
     userModel.find({}, (err, data) => {
       err ? res.status(401).json({ error: err.message }) : res.json(data);
@@ -54,12 +54,43 @@ async function login(req, res) {
 }
 
 async function deleteUser(req, res) {
-  if (req.user) {
-    console.log(req.params.email);
+  try {
     await userModel.find({ email: req.params.email }).deleteOne();
     res.json({
       message: `successfully deleted user with email ${req.params.email}`,
       status: 'success',
+    });
+    jwt.revoke
+
+  } catch (err) {
+    res.status(404).json({ message: err.message, status: 'failed' });
+  }
+}
+
+async function updateUser(req, res) {
+  if (req.user.email == req.params.email) {
+    try {
+      const password = req.body.password;
+      const hashedPassword = await bcrypt.hash(password, 10);
+      userModel.updateOne(
+        { email: req.params.email },
+        { password: hashedPassword },
+        (err, data) => {
+          err
+            ? res.json({ error: err.message, status: 'failed' }).status(402)
+            : res
+                .json({ message: 'updated password', status: 'success' })
+                .status(200);
+      
+        }
+      );
+    } catch (err) {
+      res.json({ error: err.message, status: 'failed' }).status(402);
+    }
+  } else {
+    res.json({
+      error: "you can't update an account that isnt your own",
+      status: 'failed',
     });
   }
 }
@@ -67,7 +98,6 @@ async function deleteUser(req, res) {
 function authenticateToken(req, res, next) {
   const authHeader = req.headers['token'];
   const token = authHeader && authHeader.split(' ')[1];
-  console.log(token);
   if (token == null)
     return res
       .status(401)
@@ -76,7 +106,7 @@ function authenticateToken(req, res, next) {
     if (err) {
       res.status(401).json({ message: err.message, status: 'failed' });
     } else {
-      req.user = user;
+      req.user= user;
       next();
     }
   });
@@ -87,5 +117,6 @@ module.exports = {
   getUsers: getUsers,
   login: login,
   deleteUser: deleteUser,
+  updateUser: updateUser,
   authenticateToken: authenticateToken,
 };

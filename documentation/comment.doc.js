@@ -1,6 +1,43 @@
+const getcomments = {
+  tags: ['comment'],
+  description: 'get comments from dbs',
+  parameters: [
+    {
+      in: 'header',
+      name: 'token',
+      description: 'token',
+      type: 'string',
+      required: true,
+      example: 'Bearer token',
+    },
+  ],
+  responses: {
+    200: {
+      description: 'OK',
+      content: {
+        'application/json': {
+          schema: {
+            type: 'object ',
+            example: [
+              {
+                _id: '63c791b675426914a79d53e9',
+                blog: '63c521ec11358f7d533de44f',
+                name: 'kevzy',
+                comment: 'your 2nd comment,mongose function',
+                date: '2023-01-18T06:28:12.000Z',
+                __v: 0,
+              },
+            ],
+          },
+        },
+      },
+    },
+  },
+};
+
 const addcomment = {
   tags: ['comment'],
-  description: 'all messages in dbs',
+  description: 'add comment into dbs',
   parameters: [
     {
       name: 'id',
@@ -43,9 +80,9 @@ const addcomment = {
   },
 };
 
-const deleteuser = {
+const deletecomment = {
   tags: ['comment'],
-  description: 'all messages in dbs',
+  description: 'delet comment from dbs',
   parameters: [
     {
       name: 'id',
@@ -79,24 +116,16 @@ const deleteuser = {
   },
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
 const commentRouterDoc = {
   '/addcomment/{id}': {
     post: addcomment,
   },
   '/deletecomment/{id}': {
-    delete: deleteuser,
+    delete: deletecomment,
   },
+  '/getcomments': {
+    get: getcomments,
+  },
+ 
 };
 module.exports = commentRouterDoc;
