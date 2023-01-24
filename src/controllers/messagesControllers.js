@@ -22,16 +22,13 @@ async function addMessages(req, res) {
   }
 }
 async function deleteMessage(req, res) {
-try {
-   await messageModel.findById({ _id: req.params.id }).deleteOne();
-   res.json({ message: `${req.params.id} has been delete`, status: 'sucess' });
-
-  
-} catch (error) {
-  res.json({error:err.message}).status(401)
-  
-} 
-
+  console.log(req.params.id);
+  try {
+    await messageModel.findById({ _id: req.params.id }).deleteOne();
+    res.json({ message: `${req.params.id} has been delete`, status: 'sucess' });
+  } catch (err) {
+    res.json({ error: err.message }).status(401);
+  }
 }
 
 module.exports = {

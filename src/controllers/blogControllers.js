@@ -29,7 +29,7 @@ async function addBlogs(req, res) {
       await blog.save();
       res.json({message:"blog added",status:"success"});
     } catch (err) {
-      res.json(blog);
+      res.json({error:err.message});
     }
   }
 }

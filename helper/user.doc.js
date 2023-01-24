@@ -1,6 +1,6 @@
-const listmessages = {
-  tags: ['messages'],
-  description: 'all messages in dbs',
+const listUser = {
+  tags: ['users'],
+  description: 'all users in dbs',
   parameters: [
     {
       in: 'header',
@@ -20,10 +20,10 @@ const listmessages = {
             type: 'Array ',
             example: [
               {
-                _id: '63bdbf7fe4c0a201f8f8e0ec',
-                name: 'test',
-                email: 'test@gmail.com',
-                content: 'my db trial',
+                _id: '63c15f60d5dcce0d22c572ae',
+                email: 'isisisi@hgdvfhghkvf.com',
+                password:
+                  '$2b$10$eU9druzf/NQ.oybcE7sytemgyk7JM3bqzAXjD5VvaFJJrHo.bbtyW',
                 __v: 0,
               },
             ],
@@ -34,25 +34,24 @@ const listmessages = {
   },
 };
 
-const addmessages = {
-  tags: ['messages'],
-  description: 'add message to dbs',
+const login = {
+  tags: ['users'],
+  description: 'all users in dbs',
   requestBody: {
     content: {
       'application/json': {
         schema: {
           type: 'object',
           properties: {
-            name: { type: 'string', description: 'name', example: 'kelly' },
             email: {
               type: 'string',
               description: 'email',
-              example: 'kake@gmail.com',
+              example: 'ishAkev.com',
             },
-            content: {
+            password: {
               type: 'string',
               description: 'content',
-              example: 'hey balbel to es6 route test',
+              example: 'passmwback',
             },
           },
         },
@@ -65,10 +64,12 @@ const addmessages = {
       content: {
         'application/json': {
           schema: {
-            type: 'object ',
+            type: 'object',
             example: {
-              message: 'message sent',
-              status: 'success',
+              message: 'successfully loged in here is your access token',
+              token:
+                'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImlzaEFrZXYuY29tIiwiaWF0IjoxNjc0MTI4NTQzfQ.1ym7mFNQbR9B8ssHSQKvs6vekqviuQE9RrRacHCEnSE',
+              status: 'sucess',
             },
           },
         },
@@ -76,15 +77,14 @@ const addmessages = {
     },
   },
 };
-
-const deletemessages = {
-  tags: ['messages'],
-  description: 'delete message from dbs',
+const deleteuser = {
+  tags: ['users'],
+  description: 'delete user from dbs',
   parameters: [
     {
-      name: 'id',
+      name: 'email',
       in: 'path',
-      description: 'message id',
+      description: 'email of user',
       required: true,
       type: 'string',
       example: '63bdbc1451a42f4d46319e77',
@@ -95,7 +95,7 @@ const deletemessages = {
       description: 'token',
       type: 'string',
       required: true,
-      example:'Bearer token'
+      example: 'Bearer token',
     },
   ],
   responses: {
@@ -106,8 +106,9 @@ const deletemessages = {
           schema: {
             type: 'object ',
             example: {
-              message: ` message has been deleted`,
-              status: 'sucess',
+              message:
+                'successfully deleted user with email isisisi@hgdvfhghkvf.com',
+              status: 'success',
             },
           },
         },
@@ -116,16 +117,15 @@ const deletemessages = {
   },
 };
 
-const messageRouterDoc = {
-  '/getmessages': {
-    get: listmessages,
+const userRouterDoc = {
+  '/getusers': {
+    get: listUser,
   },
-  '/addmessages': {
-    post: addmessages,
+  '/login': {
+    post: login,
   },
-  '/deletemessage/{id}': {
-    delete: deletemessages,
+  '/deleteuser/{email}': {
+    delete: deleteuser,
   },
-};
-
-module.exports = messageRouterDoc;
+}
+module.exports = userRouterDoc;
