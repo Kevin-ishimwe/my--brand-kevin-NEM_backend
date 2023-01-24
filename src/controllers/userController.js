@@ -1,4 +1,3 @@
-import express from 'express';
 import userModel from '../models/userSchema';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
@@ -19,7 +18,7 @@ async function addUser(req, res) {
     res.json({ error: err.message }).status(500);
   }
 }
-async function getUsers(req, res) {
+function getUsers(req, res) {
   console.log(req.user);
   if (req.user) {
     userModel.find({}, (err, data) => {
@@ -60,8 +59,7 @@ async function deleteUser(req, res) {
       message: `successfully deleted user with email ${req.params.email}`,
       status: 'success',
     });
-    jwt.revoke
-
+    jwt.revoke;
   } catch (err) {
     res.status(404).json({ message: err.message, status: 'failed' });
   }
@@ -75,13 +73,12 @@ async function updateUser(req, res) {
       userModel.updateOne(
         { email: req.params.email },
         { password: hashedPassword },
-        (err, data) => {
+        (err, _data) => {
           err
             ? res.json({ error: err.message, status: 'failed' }).status(402)
             : res
                 .json({ message: 'updated password', status: 'success' })
                 .status(200);
-      
         }
       );
     } catch (err) {
@@ -106,17 +103,10 @@ function authenticateToken(req, res, next) {
     if (err) {
       res.status(401).json({ message: err.message, status: 'failed' });
     } else {
-      req.user= user;
+      req.user = user;
       next();
     }
   });
 }
 
-module.exports = {
-  addUser: addUser,
-  getUsers: getUsers,
-  login: login,
-  deleteUser: deleteUser,
-  updateUser: updateUser,
-  authenticateToken: authenticateToken,
-};
+export { addUser, getUsers, login, deleteUser, updateUser, authenticateToken };

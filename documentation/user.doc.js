@@ -187,4 +187,4 @@ const userRouterDoc = {
     put: updateuser,
   },
 };
-module.exports = userRouterDoc;
+export default( userRouterDoc)

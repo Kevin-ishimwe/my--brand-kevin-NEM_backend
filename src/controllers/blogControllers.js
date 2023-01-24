@@ -1,25 +1,27 @@
 import blogModel from '../models/blogSchema';
 import cloudinary from '../utils/cloudnary';
 
-async function getBlogs(req, res) {
+async function getBlogs(_req, res) {
   try {
     blogModel
       .find({}, (err, data) => {
-        err ? res.json({ error: err.message }) : res.status(200).json(data)
+        err ? res.json({ error: err.message }) : res.status(200).json(data);
       })
       .populate('comments');
   } catch (err) {
     res.status(401).json({ message: err.message, status: 'failed' });
   }
 }
-async function singleBlog(req, res) {
+function singleBlog(req, res) {
   try {
     const blogid = req.params.id;
-    blogModel.find({ _id: blogid }, (err, data) => {
-      err
-        ? res.status(401).json({ message: err.message, status: 'failed' })
-        : res.status(200).json(data);
-    }).populate("comments");
+    blogModel
+      .find({ _id: blogid }, (err, data) => {
+        err
+          ? res.status(401).json({ message: err.message, status: 'failed' })
+          : res.status(200).json(data);
+      })
+      .populate('comments');
   } catch (err) {
     res.json({ error: err.message, status: 'failed' }).status(404);
   }
@@ -46,7 +48,7 @@ async function addBlogs(req, res) {
 }
 async function deleteBlogs(req, res) {
   try {
-    let blog = await blogModel.findById({ _id: req.params.id });
+    const blog = await blogModel.findById({ _id: req.params.id });
     await cloudinary.uploader.destroy(blog.blogImgId);
 
     await blogModel.findById({ _id: req.params.id }).deleteOne();
@@ -78,19 +80,17 @@ async function updateBlog(req, res) {
       };
 
       blog = await blogModel
-        .updateOne({ _id: req.params.id }, data, (err, npd) => {})
+        .updateOne({ _id: req.params.id }, data, (err, _npd) => {
+          if (err) {
+            res.status(401).json({ message: err.message, status: 'failed' });
+          }
+        })
         .clone();
       res.json({ message: 'sucessfully updated blog', status: 'sucess' });
     } catch (err) {
-      res.json({ message: err.message, status: 'failed' });
+      res.status(401).json({ message: err.message, status: 'failed' });
     }
   }
 }
 
-module.exports = {
-  getBlogs: getBlogs,
-  addBlogs: addBlogs,
-  deleteBlogs: deleteBlogs,
-  updateBlog: updateBlog,
-  singleBlog: singleBlog,
-};
+export { getBlogs, addBlogs, deleteBlogs, updateBlog, singleBlog };

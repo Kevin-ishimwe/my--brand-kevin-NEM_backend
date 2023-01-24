@@ -128,4 +128,4 @@ const commentRouterDoc = {
   },
  
 };
-module.exports = commentRouterDoc;
+export default (commentRouterDoc)

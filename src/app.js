@@ -22,7 +22,7 @@ app.use(MessageRoutes);
 app.use(BlogRoutes);
 app.use(userRoutes);
 app.use(commentRoutes);
-app.use((req, res) => {
+app.use((_req, res) => {
   res.status(404).json({ error: 'endpoint doesnt exist' })
 });
-module.exports=app
+export default (app)

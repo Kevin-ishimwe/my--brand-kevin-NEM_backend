@@ -1,9 +1,8 @@
-import express from 'express';
 import messageModel from '../models/messsageSchema';
 
-function getMessages(req, res) {
+function getMessages(_req, res) {
   messageModel.find({}, (err, data) => {
-    err ? console.log(err) : res.json(data).status(200);
+    err ? res.json({ error: err.message }).status(401) : res.json(data).status(200);
   });
 }
 
@@ -29,12 +28,8 @@ async function deleteMessage(req, res) {
       .status(200)
       .json({ message: `${req.params.id} has been delete`, status: 'sucess' });
   } catch (err) {
-    res.status(401).json({ error: err.message })
+    res.status(401).json({ error: err.message });
   }
 }
 
-module.exports = {
-  getMessages: getMessages,
-  addMessages: addMessages,
-  deleteMessage: deleteMessage,
-};
+export { getMessages, addMessages, deleteMessage };
