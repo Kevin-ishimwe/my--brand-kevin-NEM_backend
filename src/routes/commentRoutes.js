@@ -8,7 +8,7 @@ import {
 const commentRoutes = express.Router();
 
 commentRoutes.post('/addcomment/:id',addComment);
-commentRoutes.get('/getcomments',getComments);
+commentRoutes.get('/getcomments', authenticateToken,getComments);
 commentRoutes.delete('/deletecomment/:id',authenticateToken, deleteComments);
 
 export default commentRoutes;

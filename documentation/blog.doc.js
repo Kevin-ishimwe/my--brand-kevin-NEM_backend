@@ -30,6 +30,61 @@ const listblogss = {
   },
 };
 
+const singleblog = {
+  tags: ['blogs'],
+  description: 'read single blogs from dbs',
+  parameters: [
+    {
+      name: 'id',
+      in: 'path',
+      description: 'blog id',
+      required: true,
+      type: 'string',
+      example: '63bdbc1451a42f4d46319e77',
+    },
+  ],
+  responses: {
+    200: {
+      description: 'OK',
+      content: {
+        'application/json': {
+          schema: {
+            type: 'object ',
+            example: {
+              _id: '63c92298ad493378dc71153f',
+              blogTitle: 'why we need to eat desert ',
+              blogDescription:
+                'what is a desert,which treats make a good desrt ',
+              blogImg:
+                'http://res.cloudinary.com/dcsgmqseu/image/upload/v1674125976/gyxgby1ezwhuglvwyiny.jpg',
+              blogContent: 'hey balbel to es6 route test',
+              blogImgId: 'gyxgby1ezwhuglvwyiny',
+              comments: [
+               
+                {
+                  _id: '63ca24fc7cfa30c82f6f0565',
+                  blog: '63c92298ad493378dc71153f',
+                  name: 'dieudonne',
+                  comment: 'testing comment docs zoom',
+                  date: '2023-01-20T05:19:09.000Z',
+                  __v: 0,
+                },
+              ],
+              __v: 0,
+            },
+          },
+        },
+      },
+    },
+  },
+};
+
+
+
+
+
+
+
 const addblog = {
   tags: ['blogs'],
   description: 'all blogs in dbs',
@@ -100,7 +155,7 @@ const deleteblog = {
     {
       name: 'id',
       in: 'path',
-      description: 'message id',
+      description: 'blog id',
       required: true,
       type: 'string',
       example: '63bdbc1451a42f4d46319e77',
@@ -138,7 +193,7 @@ const updateblog = {
     {
       name: 'id',
       in: 'path',
-      description: 'message id',
+      description: 'blog id',
       required: true,
       type: 'string',
       example: '63bdbc1451a42f4d46319e77',
@@ -205,6 +260,9 @@ const updateblog = {
 const blogRouterDoc = {
   '/getblogs': {
     get: listblogss,
+  },
+   "/singleblog/{id}":{
+    get:singleblog
   },
   '/addblog': {
     post: addblog,
