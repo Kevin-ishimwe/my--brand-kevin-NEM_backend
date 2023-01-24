@@ -1,7 +1,7 @@
 import blogModel from '../models/blogSchema';
 import cloudinary from '../utils/cloudnary';
 
-async function getBlogs(_req, res) {
+function getBlogs(_req, res) {
   try {
     blogModel
       .find({}, (err, data) => {
