@@ -1,22 +1,24 @@
 import request from 'supertest';
+import app from '../app'
 
 describe('blog tests', () => {
+
   test('getting blogs no privileged', async () => {
-    await request('http://localhost:1010')
+     request(app)
       .get('/getblogs')
       .expect(function (res) {
         expect(res.status).toBe(200);
       });
   });
   test('getting single blogs', async () => {
-    await request('http://localhost:1010')
+     request(app)
       .get('/singleblog/63c92298ad493378dc71153f')
       .expect(function (res) {
         expect(res.status).toBe(200);
       });
   });
   test('delete a blog', async () => {
-    await request('http://localhost:1010')
+     request(app)
       .delete('/deleteblog/:id')
       .set({
         token:

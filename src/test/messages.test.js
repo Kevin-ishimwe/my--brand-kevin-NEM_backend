@@ -21,16 +21,16 @@ describe('messages tests', () => {
         expect(res.status).toBe(200);
       });
   });
-  // test('adding message',async ()=>{
-  //   await request('http://localhost:1010')
-  //     .post('/addmessages')
-  //     .send({
-  //       name: "ish boy",
-  //       email: "jesterboy@gmail.co ",
-  //       content: " of jester",
-  //     })
-  //     .expect(function (res) {
-  //       expect(res.status).toBe(201);
-  //     });
-  // })
+  test('adding message',async ()=>{
+     request('http://localhost:1010')
+      .post('/addmessages')
+      .send({
+        name: "ish boy",
+        email: "jesterboy@gmail.co ",
+        content: " of jester",
+      })
+      .expect(function (res) {
+        expect(res.status).toBe(201);
+      });
+  })
 });
