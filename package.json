@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "build": "babel src/server.js -d dist",
-    "start": "npm run build && nodemon --exec babel-node src/server.js",
+    "start": "npm run build && node --exec babel-node src/server.js",
+    "dev": "npm run build && nodemon --exec babel-node src/server.js",
     "test": "jest"
   },
   "jest": {
