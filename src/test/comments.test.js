@@ -2,7 +2,7 @@ import request from 'supertest';
 import app from '../app';
 
 describe('tests for comments section', () => {
-  test('getting comments ', async () => {
+  test('getting comments ', () => {
      request(app)
       .get('/getcomments')
       .set({
@@ -13,7 +13,7 @@ describe('tests for comments section', () => {
         expect(res.status).toBe(200);
       });
   });
-  test('deleting messages', async () => {
+  test('deleting messages', () => {
      request(app)
       .delete('/deletecomment/63ca24fc7cfa30c82f6f0565')
       .set({
@@ -24,7 +24,7 @@ describe('tests for comments section', () => {
         expect(res.status).toBe(200);
       });
   });
-  test('adding comment', async () => {
+  test('adding comment', () => {
      request(app)
       .post('/addcomment/63c791b675426914a79d53e9')
       .send({

@@ -1,9 +1,9 @@
 import request from 'supertest';
-
+import app from '../app'
 describe('messages tests', () => {
 
-  test('getting messages no privileged', async () => {
-    await request('http://localhost:1010')
+  test('getting messages no privileged', () => {
+    request(app)
       .get('/getmessages')
       .set({
         token:
@@ -14,15 +14,15 @@ describe('messages tests', () => {
       });
   })
 
-  test('deleting messages', async () => {
-    await request('http://localhost:1010')
+  test('deleting messages', () => {
+  request(app)
       .delete('/deletemessage/63bdbf7fe4c0a201f8f8e0ec')
       .expect(function (res) {
         expect(res.status).toBe(200);
       });
   });
   test('adding message',async ()=>{
-     request('http://localhost:1010')
+     request(app)
       .post('/addmessages')
       .send({
         name: "ish boy",
