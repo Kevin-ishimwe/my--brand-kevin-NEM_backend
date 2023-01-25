@@ -21,7 +21,7 @@ describe('messages tests', () => {
         expect(res.status).toBe(200);
       });
   });
-  test('adding message',async ()=>{
+  test('adding message',()=>{
      request(app)
       .post('/addmessages')
       .send({
