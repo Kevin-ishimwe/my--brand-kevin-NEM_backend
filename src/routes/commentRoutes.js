@@ -1,4 +1,5 @@
 import express from 'express';
+import { authenticateToken } from './userRoutes';
 import {
   addComment,
   getComments,
@@ -7,7 +8,7 @@ import {
 const commentRoutes = express.Router();
 
 commentRoutes.post('/addcomment/:id',addComment);
-commentRoutes.get('/getcomments',getComments);
-commentRoutes.delete('/deletecomment/:id', deleteComments);
+commentRoutes.get('/getcomments', authenticateToken,getComments);
+commentRoutes.delete('/deletecomment/:id',authenticateToken, deleteComments);
 
 export default commentRoutes;

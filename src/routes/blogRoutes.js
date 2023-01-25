@@ -6,11 +6,13 @@ import {
   getBlogs,
   addBlogs,
   deleteBlogs,
-  updateBlog
+  updateBlog,
+  singleBlog,
 } from '../controllers/blogControllers';
 
 
 BlogRoutes.get('/getblogs', getBlogs);
+BlogRoutes.get('/singleblog/:id', singleBlog);
 
 
 BlogRoutes.post(

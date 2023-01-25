@@ -1,4 +1,3 @@
-import express from 'express';
 import userModel from '../models/userSchema';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
@@ -17,16 +16,16 @@ async function addUser(req, res) {
     res.json(user).status(201);
   } catch (err) {
     res.json({ error: err.message }).status(500);
-    next();
   }
 }
-async function getUsers(req, res) {
+function getUsers(req, res) {
+  console.log(req.user);
   if (req.user) {
     userModel.find({}, (err, data) => {
       err ? res.status(401).json({ error: err.message }) : res.json(data);
     });
   } else {
-    res.json({ error: 'not authorized to access data',status:"failed" });
+    res.json({ error: 'not authorized to access data', status: 'failed' });
   }
 }
 async function login(req, res) {
@@ -54,33 +53,60 @@ async function login(req, res) {
 }
 
 async function deleteUser(req, res) {
-  if (req.user) {
-    console.log(req.params.email);
+  try {
     await userModel.find({ email: req.params.email }).deleteOne();
     res.json({
       message: `successfully deleted user with email ${req.params.email}`,
       status: 'success',
     });
+    jwt.revoke;
+  } catch (err) {
+    res.status(404).json({ message: err.message, status: 'failed' });
+  }
+}
+
+async function updateUser(req, res) {
+  if (req.user.email == req.params.email) {
+    try {
+      const password = req.body.password;
+      const hashedPassword = await bcrypt.hash(password, 10);
+      userModel.updateOne(
+        { email: req.params.email },
+        { password: hashedPassword },
+        (err, _data) => {
+          err
+            ? res.json({ error: err.message, status: 'failed' }).status(402)
+            : res
+                .json({ message: 'updated password', status: 'success' })
+                .status(200);
+        }
+      );
+    } catch (err) {
+      res.json({ error: err.message, status: 'failed' }).status(402);
+    }
+  } else {
+    res.json({
+      error: "you can't update an account that isnt your own",
+      status: 'failed',
+    });
   }
 }
 
 function authenticateToken(req, res, next) {
-  const authHeader = req.headers['authorization'];
+  const authHeader = req.headers['token'];
   const token = authHeader && authHeader.split(' ')[1];
   if (token == null)
     return res
       .status(401)
       .json({ message: 'not authorized', status: 'failed' });
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-    req.user = user;
-    next();
+    if (err) {
+      res.status(401).json({ message: err.message, status: 'failed' });
+    } else {
+      req.user = user;
+      next();
+    }
   });
 }
 
-module.exports = {
-  addUser: addUser,
-  getUsers: getUsers,
-  login: login,
-  deleteUser: deleteUser,
-  authenticateToken: authenticateToken,
-};
+export { addUser, getUsers, login, deleteUser, updateUser, authenticateToken };

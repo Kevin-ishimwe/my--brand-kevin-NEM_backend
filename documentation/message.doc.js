@@ -3,12 +3,13 @@ const listmessages = {
   description: 'all messages in dbs',
   parameters: [
     {
-      name: 'Authorization',
       in: 'header',
+      name: 'token',
       description: 'token',
+      type: 'apiKey',
       required: true,
-        type: "string",
-      example: 'Bearer 63bdbc1451a42f4d46319e77'}
+      example: 'Bearer ',
+    },
   ],
   responses: {
     200: {
@@ -82,10 +83,19 @@ const deletemessages = {
   parameters: [
     {
       name: 'id',
-      in: 'query',
+      in: 'path',
       description: 'message id',
+      required: true,
       type: 'string',
       example: '63bdbc1451a42f4d46319e77',
+    },
+    {
+      in: 'header',
+      name: 'token',
+      description: 'token',
+      type: 'string',
+      required: true,
+      example:'Bearer token'
     },
   ],
   responses: {
@@ -113,9 +123,9 @@ const messageRouterDoc = {
   '/addmessages': {
     post: addmessages,
   },
-  '/deletemessage/id': {
+  '/deletemessage/{id}': {
     delete: deletemessages,
   },
 };
 
-module.exports = messageRouterDoc;
+export default (messageRouterDoc)
