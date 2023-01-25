@@ -3,21 +3,21 @@ import app from '../app'
 
 describe('blog tests', () => {
 
-  test('getting blogs no privileged', async () => {
+  test('getting blogs no privileged',  () => {
      request(app)
       .get('/getblogs')
       .expect(function (res) {
         expect(res.status).toBe(200);
       });
   });
-  test('getting single blogs', async () => {
+  test('getting single blogs',  () => {
      request(app)
       .get('/singleblog/63c92298ad493378dc71153f')
       .expect(function (res) {
         expect(res.status).toBe(200);
       });
   });
-  test('delete a blog', async () => {
+  test('delete a blog',  () => {
      request(app)
       .delete('/deleteblog/:id')
       .set({
