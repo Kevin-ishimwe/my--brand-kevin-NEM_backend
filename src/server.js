@@ -8,7 +8,7 @@ mongoose.set('strictQuery', true);
 mongoose
   .connect(hosted, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
-    app.listen(1010, () => {
+    app.listen(8000, () => {
       console.log('server running');
     });
     console.log('connected to dbs');
