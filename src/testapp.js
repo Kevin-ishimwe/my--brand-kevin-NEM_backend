@@ -9,7 +9,7 @@ import BlogRoutes from './routes/blogRoutes';
 import { userRoutes } from './routes/userRoutes';
 import commentRoutes from './routes/commentRoutes';
 import swaggerUi from 'swagger-ui-express';
-import swaggerDocumentation from '../documentation/documentation.js';
+import swaggerDocumentation from './documentation/documentation.js';
 
 const testServer = express();
 
