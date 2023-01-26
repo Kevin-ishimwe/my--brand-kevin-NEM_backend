@@ -7,6 +7,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //connecting to Mbd and lsiten to port through that
 _dotenv.default.config();
 const hosted = process.env.DB_LINK;
+console.log(hosted);
 _mongoose.default.set('strictQuery', true);
 _mongoose.default.connect(hosted, {
   useNewUrlParser: true,
