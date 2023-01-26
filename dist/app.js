@@ -11,7 +11,7 @@ var _blogRoutes = _interopRequireDefault(require("./routes/blogRoutes"));
 var _userRoutes = require("./routes/userRoutes");
 var _commentRoutes = _interopRequireDefault(require("./routes/commentRoutes"));
 var _swaggerUiExpress = _interopRequireDefault(require("swagger-ui-express"));
-var _documentation = _interopRequireDefault(require("../documentation/documentation.js"));
+var _documentation = _interopRequireDefault(require("./documentation/documentation.js"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 const app = (0, _express.default)();
 app.use('/documentation', _swaggerUiExpress.default.serve, _swaggerUiExpress.default.setup(_documentation.default));

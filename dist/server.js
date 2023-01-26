@@ -12,7 +12,7 @@ _mongoose.default.connect(hosted, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 }).then(() => {
-  _app.default.listen(1010, () => {
+  _app.default.listen(8000, () => {
     console.log('server running');
   });
   console.log('connected to dbs');
