@@ -1,9 +1,9 @@
 import request from 'supertest';
-import app from '../app';
+import testServer from '../testapp';
 
 describe('tests for comments section', () => {
-  test('getting comments ', () => {
-     request(app)
+  test('getting comments ', async () => {
+    await request(testServer)
       .get('/getcomments')
       .set({
         token:
@@ -13,8 +13,8 @@ describe('tests for comments section', () => {
         expect(res.status).toBe(200);
       });
   });
-  test('deleting messages', () => {
-     request(app)
+  test('deleting messages', async () => {
+    await request(testServer)
       .delete('/deletecomment/63ca24fc7cfa30c82f6f0565')
       .set({
         token:
@@ -24,8 +24,8 @@ describe('tests for comments section', () => {
         expect(res.status).toBe(200);
       });
   });
-  test('adding comment', () => {
-     request(app)
+  test('adding comment', async () => {
+    await request(testServer)
       .post('/addcomment/63c791b675426914a79d53e9')
       .send({
         name: 'comment with jest ',

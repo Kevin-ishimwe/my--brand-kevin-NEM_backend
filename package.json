@@ -5,9 +5,9 @@
   "main": "app.js",
   "scripts": {
     "build": "babel src/server.js -d dist",
-    "start": "babel-node src/server.js",
+    "start": "node dist/server.js",
     "dev": "npm run build && nodemon --exec babel-node src/server.js",
-    "test": "jest"
+    "test": "jest --verbose --coverage"
   },
   "jest": {
     "testEnvironment": "node"
