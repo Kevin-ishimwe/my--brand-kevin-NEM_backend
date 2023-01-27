@@ -1,9 +1,10 @@
 import request from 'supertest';
-import testServer from '../testapp';
-describe('messages tests', () => {
+import server from '../server';
+jest.setTimeout(10000);
 
-  test('getting messages no privileged', () => {
-    request(testServer)
+describe('messages tests', () => {
+  test('getting messages no privileged', async () => {
+    await request(server)
       .get('/getmessages')
       .set({
         token:
@@ -12,25 +13,25 @@ describe('messages tests', () => {
       .expect(function (res) {
         expect(res.status).toBe(200);
       });
-  })
+  });
 
-  test('deleting messages', () => {
-  request(testServer)
+  test('deleting messages', async () => {
+    await request(server)
       .delete('/deletemessage/63bdbf7fe4c0a201f8f8e0ec')
       .expect(function (res) {
         expect(res.status).toBe(200);
       });
   });
-  test('adding message',()=>{
-     request(testServer)
+  test('adding message', async () => {
+    await request(server)
       .post('/addmessages')
       .send({
-        name: "ish boy",
-        email: "jesterboy@gmail.co ",
-        content: " of jester",
+        name: 'ish boy',
+        email: 'jesterboy@gmail.co ',
+        content: ' of jester',
       })
       .expect(function (res) {
         expect(res.status).toBe(201);
       });
-  })
+  });
 });

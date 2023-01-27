@@ -21,7 +21,7 @@ async function addMessages(req, res) {
   }
 }
 async function deleteMessage(req, res) {
-  console.log(req.params.id);
+  
   try {
     await messageModel.findById({ _id: req.params.id }).deleteOne();
     res

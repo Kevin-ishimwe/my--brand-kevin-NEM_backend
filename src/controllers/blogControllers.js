@@ -23,7 +23,7 @@ function singleBlog(req, res) {
       })
       .populate('comments');
   } catch (err) {
-    res.json({ error: err.message, status: 'failed' }).status(404);
+    res.status(404).json({ error: err.message, status: 'failed' });
   }
 }
 
@@ -42,7 +42,7 @@ async function addBlogs(req, res) {
       await blog.save();
       res.status(201).json({ message: 'blog added', status: 'success' });
     } catch (err) {
-      res.status(401).json({ message: err.message, status: 'failed' });
+      res.status(403).json({ message: err.message, status: 'failed' });
     }
   }
 }
@@ -50,14 +50,13 @@ async function deleteBlogs(req, res) {
   try {
     const blog = await blogModel.findById({ _id: req.params.id });
     await cloudinary.uploader.destroy(blog.blogImgId);
-
     await blogModel.findById({ _id: req.params.id }).deleteOne();
     res.status(200).json({
       message: `${req.params.id} has been deleted`,
       status: 'success',
     });
   } catch (err) {
-    res.json({ message: err.message, status: 'failed' }).status(404);
+    res.status(403).json({ message: err.message, status: 'failed' });
   }
 }
 
@@ -80,7 +79,7 @@ async function updateBlog(req, res) {
       };
 
       blog = await blogModel
-        .updateOne({ _id: req.params.id }, data, (err, _npd) => {
+        .updateOne({ _id: req.params.id }, data, (err) => {
           if (err) {
             res.status(401).json({ message: err.message, status: 'failed' });
           }

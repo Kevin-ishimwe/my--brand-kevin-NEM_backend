@@ -19,7 +19,6 @@ async function addUser(req, res) {
   }
 }
 function getUsers(req, res) {
-  console.log(req.user);
   if (req.user) {
     userModel.find({}, (err, data) => {
       err ? res.status(401).json({ error: err.message }) : res.json(data);
@@ -30,25 +29,29 @@ function getUsers(req, res) {
 }
 async function login(req, res) {
   const { email, password } = req.body;
-  const user = await userModel.find({ email: email }).exec();
-  if (user[0] == null) {
-    res.json({ message: 'wrong user email' }).status(400);
-  } else {
-    if (await bcrypt.compare(password, user[0].password)) {
-      const accessToken = jwt.sign(
-        { email: email },
-        process.env.ACCESS_TOKEN_SECRET
-      );
-      res
-        .json({
-          message: `successfully loged in here is your access token`,
-          token: accessToken,
-          status: 'sucess',
-        })
-        .status(201);
+  try {
+    const user = await userModel.find({ email: email }).exec();
+    if (user[0] == null) {
+      res.status(403).json({ message: 'wrong user email' });
     } else {
-      res.json({ message: 'wrong password' }).status(300);
+      if (await bcrypt.compare(password, user[0].password)) {
+        const accessToken = jwt.sign(
+          { email: email },
+          process.env.ACCESS_TOKEN_SECRET
+        );
+        res .status(200)
+          .json({
+            message: `successfully loged in here is your access token`,
+            token: accessToken,
+            status: 'sucess',
+          })
+         
+      } else {
+        res.status(403).json({ message: 'wrong password' });
+      }
     }
+  } catch (error) {
+    console.log(error);
   }
 }
 
