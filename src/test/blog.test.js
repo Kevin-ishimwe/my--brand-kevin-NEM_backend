@@ -7,14 +7,14 @@ describe('blog tests', () => {
     await request(server)
       .get('/getblogs')
       .expect(function (res) {
-        expect(res.status).toBe(200);
+        return expect(res.status).toBe(200);
       });
   });
   test('getting single blogs', async () => {
     await request(server)
       .get('/singleblog/63d3eef48b021d174d8b69d0')
       .expect(function (res) {
-        expect(res.status).toBe(200);
+        return expect(res.status).toBe(200);
       });
   });
 
@@ -26,7 +26,7 @@ describe('blog tests', () => {
           'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImlzaEFrZXZpbjQ1LmNvbSIsImlhdCI6MTY3NDUzNjQ3NX0.MzC4RMpIrpRpj9hhCgZao4AbeQcqv6gVh2mfBdEOWBU',
       })
       .expect(function (res) {
-        expect(res.status).toBe(403);
+        return expect(res.status).toBe(403);
       });
   });
 
@@ -44,7 +44,7 @@ describe('blog tests', () => {
         blogImgId: 'result.public_id',
       })
       .expect((res) => {
-        expect(res.status).toBe(403);
+        return expect(res.status).toBe(403);
       });
   });
 });

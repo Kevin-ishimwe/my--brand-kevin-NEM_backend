@@ -11,16 +11,18 @@ describe('messages tests', () => {
           'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImlzaEFrZXZpbjQ1LmNvbSIsImlhdCI6MTY3NDUzNjQ3NX0.MzC4RMpIrpRpj9hhCgZao4AbeQcqv6gVh2mfBdEOWBU',
       })
       .expect(function (res) {
-        expect(res.status).toBe(200);
+        return expect(res.status).toBe(200);
       });
+    
   });
 
   test('deleting messages', async () => {
     await request(server)
       .delete('/deletemessage/63bdbf7fe4c0a201f8f8e0ec')
       .expect(function (res) {
-        expect(res.status).toBe(200);
+        return expect(res.status).toBe(200);
       });
+     
   });
   test('adding message', async () => {
     await request(server)
@@ -31,7 +33,8 @@ describe('messages tests', () => {
         content: ' of jester',
       })
       .expect(function (res) {
-        expect(res.status).toBe(201);
+        return expect(res.status).toBe(201);
       });
+     
   });
 });

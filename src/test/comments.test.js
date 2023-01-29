@@ -10,7 +10,8 @@ describe('tests for comments section', () => {
           'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImlzaEFrZXZpbjQ1LmNvbSIsImlhdCI6MTY3NDUzNjQ3NX0.MzC4RMpIrpRpj9hhCgZao4AbeQcqv6gVh2mfBdEOWBU',
       })
       .expect(function (res) {
-        expect(res.status).toBe(200);
+        return expect(res.status).toBe(200);
+         
       });
   });
   test('deleting messages', async () => {
@@ -21,7 +22,8 @@ describe('tests for comments section', () => {
           'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImlzaEFrZXZpbjQ1LmNvbSIsImlhdCI6MTY3NDUzNjQ3NX0.MzC4RMpIrpRpj9hhCgZao4AbeQcqv6gVh2mfBdEOWBU',
       })
       .expect(function (res) {
-        expect(res.status).toBe(200);
+        return expect(res.status).toBe(200);
+         
       });
   });
   test('adding comment', async () => {
@@ -32,7 +34,8 @@ describe('tests for comments section', () => {
         comment: 'supa test super awesome',
       })
       .expect(function (res) {
-        expect(res.status).toBe(200);
+        return expect(res.status).toBe(200);
+         
       });
   });
 });
