@@ -8,8 +8,7 @@ on:
     branches: ['DEVELOP']
   push:
     branches: ['DEVELOP']
- env:
-  NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+env:
   DB_LINK: ${{secrets.DB_LINK}}
   ACCESS_TOKEN_SECRET: ${{secrets.ACCESS_TOKEN_SECRET}}
 
