@@ -10,7 +10,7 @@ describe('tests for users', () => {
         password: 'idkyoutellme',
       })
       .expect(function (res) {
-        expect(res.status).toBe(404);
+        expect(res.status).toBe(403);
       });
   });
 });

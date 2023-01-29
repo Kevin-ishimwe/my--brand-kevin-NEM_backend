@@ -6,6 +6,7 @@ dotenv.config();
 
 async function addUser(req, res) {
   const { email, password } = req.body;
+  console.log(req.body);
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = new userModel({
@@ -13,9 +14,9 @@ async function addUser(req, res) {
       password: hashedPassword,
     });
     await user.save();
-    res.json(user).status(201);
+    res.status(201).json(user);
   } catch (err) {
-    res.json({ error: err.message }).status(500);
+    res.status(400).json({ error: err.message.split(':')[2] });
   }
 }
 function getUsers(req, res) {
@@ -29,37 +30,37 @@ function getUsers(req, res) {
 }
 async function login(req, res) {
   const { email, password } = req.body;
+
   try {
     const user = await userModel.find({ email: email }).exec();
     if (user[0] == null) {
       res.status(403).json({ message: 'wrong user email' });
     } else {
       if (await bcrypt.compare(password, user[0].password)) {
-        const accessToken = jwt.sign(
+        const accessToken = generateAuthtoken(email);
+        const refreshToken = jwt.sign(
           { email: email },
-          process.env.ACCESS_TOKEN_SECRET
+          process.env.REFRESH_TOKEN_SECRET
         );
-        res .status(200)
-          .json({
-            message: `successfully loged in here is your access token`,
-            token: accessToken,
-            status: 'sucess',
-          })
-         
+        res.status(200).setHeader('Set-Cookie', `token=${accessToken} `).json({
+          message: `successfully loged in here is your access token`,
+          token: accessToken,
+          status: 'sucess',
+        });
       } else {
-        res.status(403).json({ message: 'wrong password' });
+        res.status(400).json({ message: 'wrong password' });
       }
     }
   } catch (error) {
-    console.log(error);
+    res.json({ error: error.message });
   }
 }
 
 async function deleteUser(req, res) {
   try {
     await userModel.find({ email: req.params.email }).deleteOne();
-    res.json({
-      message: `successfully deleted user with email ${req.params.email}`,
+    res.status(204).json({
+      message: `successfully deleted user`,
       status: 'success',
     });
     jwt.revoke;
@@ -76,7 +77,7 @@ async function updateUser(req, res) {
       userModel.updateOne(
         { email: req.params.email },
         { password: hashedPassword },
-        (err, _data) => {
+        (err) => {
           err
             ? res.json({ error: err.message, status: 'failed' }).status(402)
             : res
@@ -85,7 +86,7 @@ async function updateUser(req, res) {
         }
       );
     } catch (err) {
-      res.json({ error: err.message, status: 'failed' }).status(402);
+      res.status(403).json({ error: err.message, status: 'failed' });
     }
   } else {
     res.json({
@@ -93,6 +94,14 @@ async function updateUser(req, res) {
       status: 'failed',
     });
   }
+}
+function generateAuthtoken(email) {
+  const accessToken = jwt.sign(
+    { email: email },
+    process.env.ACCESS_TOKEN_SECRET
+    //  { expiresIn: '5min' }
+  );
+  return accessToken;
 }
 
 function authenticateToken(req, res, next) {

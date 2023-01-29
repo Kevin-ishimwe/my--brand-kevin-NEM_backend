@@ -51,8 +51,8 @@ async function deleteBlogs(req, res) {
     const blog = await blogModel.findById({ _id: req.params.id });
     await cloudinary.uploader.destroy(blog.blogImgId);
     await blogModel.findById({ _id: req.params.id }).deleteOne();
-    res.status(200).json({
-      message: `${req.params.id} has been deleted`,
+    res.status(204).json({
+      message: `deleted`,
       status: 'success',
     });
   } catch (err) {
