@@ -7,7 +7,7 @@
     "build": "babel src -d dist",
     "start": "node dist/server.js",
     "dev": "npm run build && nodemon --exec babel-node src/server.js",
-    "test": "jest --verbose --coverage"
+    "test": "jest --verbose --coverage --forceExit --detectOpenHandles "
   },
   "jest": {
     "testEnvironment": "node"
