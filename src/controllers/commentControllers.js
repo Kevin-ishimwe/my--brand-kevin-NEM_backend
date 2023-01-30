@@ -39,7 +39,7 @@ function getComments(_req, res) {
         : res.status(200).json(data);
     });
   } catch (err) {
-    res.json({ message: err.message, status: 'failed' }).status(403);
+    res.status(403).json({ message: err.message, status: 'failed' });
   }
 }
 //delete comment with this specific id
