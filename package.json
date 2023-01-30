@@ -7,10 +7,17 @@
     "build": "babel src -d dist",
     "start": "node dist/server.js",
     "dev": "npm run build && nodemon --exec babel-node src/server.js",
-    "test": "jest --verbose --coverage --forceExit "
+    "test": "jest --coverage --verbose --forceExit  "
   },
   "jest": {
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "collectCoverage": true,
+    "coverageReporters": [
+      "json",
+      "html",
+      "lcov",
+      "json-summary"
+    ]
   },
   "keywords": [],
   "author": "",
@@ -38,6 +45,7 @@
     "@babel/core": "^7.20.12",
     "@babel/node": "^7.20.7",
     "@babel/preset-env": "^7.20.2",
+    "check-code-coverage": "^1.10.4",
     "eslint": "^8.32.0",
     "eslint-config-google": "^0.14.0",
     "jest": "^29.3.1"

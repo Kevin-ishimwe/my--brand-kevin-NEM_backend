@@ -11,7 +11,6 @@ import {
 MessageRoutes.get('/getmessages', authenticateToken, getMessages);
 //add messages
 MessageRoutes.post('/addmessages', addMessages);
-MessageRoutes.delete('/deletemessage/:id', 
-deleteMessage);
+MessageRoutes.delete('/deletemessage/:id',authenticateToken,deleteMessage);
 //there wont be any need for an update route since messages dont need updates
 export default MessageRoutes;

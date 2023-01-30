@@ -6,7 +6,6 @@ dotenv.config();
 
 async function addUser(req, res) {
   const { email, password } = req.body;
-  console.log(req.body);
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = new userModel({
@@ -22,7 +21,7 @@ async function addUser(req, res) {
 function getUsers(req, res) {
   if (req.user) {
     userModel.find({}, (err, data) => {
-      err ? res.status(401).json({ error: err.message }) : res.json(data);
+      err ? res.status(401).json({ error: err.message }) : res.status(200).json(data);
     });
   } else {
     res.json({ error: 'not authorized to access data', status: 'failed' });
@@ -30,12 +29,11 @@ function getUsers(req, res) {
 }
 async function login(req, res) {
   const { email, password } = req.body;
-  console.log(req.body)
 
   try {
     const user = await userModel.find({ email: email }).exec();
     if (user[0] == null) {
-      res.status(403).json({ message: 'wrong user email' });
+      res.status(404).json({ message: 'wrong user email' });
     } else {
       if (await bcrypt.compare(password, user[0].password)) {
         const accessToken = generateAuthtoken(email);

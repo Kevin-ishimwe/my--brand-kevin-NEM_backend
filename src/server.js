@@ -12,8 +12,8 @@ mongoose
     if (process.env.NODE_ENV !== 'test') {
       try {
       app.listen(8000, () => {
-          console.log('server running');
-          console.log('connected to dbs');
+          console.log(' production server running');
+          console.log('connected to production dbs');
         });
       } catch (error) {
         console.log(error)
