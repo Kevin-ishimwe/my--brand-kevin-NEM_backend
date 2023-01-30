@@ -1,6 +1,6 @@
 import request from 'supertest';
 import server from '../server';
-jest.setTimeout(10000);
+jest.setTimeout(30000);
 
 describe('messages tests', () => {
   test('getting messages no privileged', async () => {
@@ -12,8 +12,10 @@ describe('messages tests', () => {
       })
       .expect(function (res) {
         return expect(res.status).toBe(200);
-      });
-    
+      }).catch(error => {
+      console.error(error);
+      throw error;
+    });
   });
 
   test('deleting messages', async () => {
@@ -21,8 +23,10 @@ describe('messages tests', () => {
       .delete('/deletemessage/63bdbf7fe4c0a201f8f8e0ec')
       .expect(function (res) {
         return expect(res.status).toBe(200);
-      });
-     
+      }).catch(error => {
+      console.error(error);
+      throw error;
+    });
   });
   test('adding message', async () => {
     await request(server)
@@ -34,7 +38,9 @@ describe('messages tests', () => {
       })
       .expect(function (res) {
         return expect(res.status).toBe(201);
-      });
-     
+      }).catch(error => {
+      console.error(error);
+      throw error;
+    });
   });
 });

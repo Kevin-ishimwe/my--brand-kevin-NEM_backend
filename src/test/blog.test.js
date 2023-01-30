@@ -1,6 +1,6 @@
 import request from 'supertest';
 import server from '../server';
-jest.setTimeout(10000);
+jest.setTimeout(30000);
 
 describe('blog tests', () => {
   test('getting blogs no privileged', async () => {
@@ -8,6 +8,10 @@ describe('blog tests', () => {
       .get('/getblogs')
       .expect(function (res) {
         return expect(res.status).toBe(200);
+      })
+      .catch((error) => {
+        console.error(error);
+        throw error;
       });
   });
   test('getting single blogs', async () => {
@@ -15,6 +19,10 @@ describe('blog tests', () => {
       .get('/singleblog/63d3eef48b021d174d8b69d0')
       .expect(function (res) {
         return expect(res.status).toBe(200);
+      })
+      .catch((error) => {
+        console.error(error);
+        throw error;
       });
   });
 
@@ -27,11 +35,15 @@ describe('blog tests', () => {
       })
       .expect(function (res) {
         return expect(res.status).toBe(403);
+      })
+      .catch((error) => {
+        console.error(error);
+        throw error;
       });
   });
 
   test('adding a malformed blog', async () => {
-    request(server)
+    await request(server)
       .post('/addblog')
       .set({
         token:
@@ -45,6 +57,10 @@ describe('blog tests', () => {
       })
       .expect((res) => {
         return expect(res.status).toBe(403);
+      })
+      .catch((error) => {
+        console.error(error);
+        throw error;
       });
   });
 });

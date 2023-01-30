@@ -1,5 +1,6 @@
 import request from 'supertest';
 import server from '../server';
+jest.setTimeout(30000);
 
 describe('tests for comments section', () => {
   test('getting comments ', async () => {
@@ -12,7 +13,10 @@ describe('tests for comments section', () => {
       .expect(function (res) {
         return expect(res.status).toBe(200);
          
-      });
+      }).catch(error => {
+      console.error(error);
+      throw error;
+    });
   });
   test('deleting messages', async () => {
     await request(server)
@@ -24,7 +28,10 @@ describe('tests for comments section', () => {
       .expect(function (res) {
         return expect(res.status).toBe(200);
          
-      });
+      }).catch(error => {
+      console.error(error);
+      throw error;
+    });
   });
   test('adding comment', async () => {
     await request(server)
@@ -36,6 +43,9 @@ describe('tests for comments section', () => {
       .expect(function (res) {
         return expect(res.status).toBe(200);
          
-      });
+      }).catch(error => {
+      console.error(error);
+      throw error;
+    });
   });
 });

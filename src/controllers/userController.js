@@ -30,6 +30,7 @@ function getUsers(req, res) {
 }
 async function login(req, res) {
   const { email, password } = req.body;
+  console.log(req.body)
 
   try {
     const user = await userModel.find({ email: email }).exec();
