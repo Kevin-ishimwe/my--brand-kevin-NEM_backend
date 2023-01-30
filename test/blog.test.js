@@ -1,6 +1,8 @@
+/* eslint-disable no-undef */
 import request from 'supertest';
 import mongoose from 'mongoose';
 import app from '../src/app';
+
 jest.setTimeout(30000);
 let server;
 const hosted = process.env.DB_LINK;
@@ -84,8 +86,6 @@ describe('blog tests', () => {
         throw error;
       });
   });
-
-
 
   //comments
   describe('tests for comments section', () => {
