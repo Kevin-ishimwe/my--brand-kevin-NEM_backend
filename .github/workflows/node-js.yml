@@ -4,10 +4,14 @@
 name: Node.js Package
 
 on:
-    pull_request:
-      branches: ["main"]
-    push:
-        branches: ["main"]
+  pull_request:
+    branches: ['DEVELOP']
+  push:
+    branches: ['DEVELOP']
+env:
+  DB_LINK: ${{secrets.DB_LINK}}
+  ACCESS_TOKEN_SECRET: ${{secrets.ACCESS_TOKEN_SECRET}}
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -16,23 +20,9 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-          
-      - run: npm ci
-      - run: npm test
 
-  publish-gpr:
-    needs: build
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          registry-url: https://npm.pkg.github.com/
       - run: npm ci
-      - run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      - run: npm run test 
+
+ 
+   
