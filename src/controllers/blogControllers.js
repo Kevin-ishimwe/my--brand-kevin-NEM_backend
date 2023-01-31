@@ -18,12 +18,12 @@ function singleBlog(req, res) {
     blogModel
       .find({ _id: blogid }, (err, data) => {
         err
-          ? res.status(401).json({ message: err.message, status: 'failed' })
+          ? res.status(404).json({ message: err.message, status: 'failed' })
           : res.status(200).json(data);
       })
       .populate('comments');
   } catch (err) {
-    res.status(404).json({ error: err.message, status: 'failed' });
+    res.status(400).json({ error: err.message, status: 'failed' });
   }
 }
 
@@ -81,13 +81,13 @@ async function updateBlog(req, res) {
       blog = await blogModel
         .updateOne({ _id: req.params.id }, data, (err) => {
           if (err) {
-            res.status(401).json({ message: err.message, status: 'failed' });
+            res.status(400).json({ message: err.message, status: 'failed' });
           }
         })
         .clone();
       res.json({ message: 'sucessfully updated blog', status: 'sucess' });
     } catch (err) {
-      res.status(401).json({ message: err.message, status: 'failed' });
+      res.status(400).json({ message: err.message, status: 'failed' });
     }
   }
 }

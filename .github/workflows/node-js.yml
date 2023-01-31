@@ -10,6 +10,7 @@ on:
     branches: ['DEVELOP']
 env:
   DB_LINK: ${{secrets.DB_LINK}}
+  DB_TEST_LINK: ${{secrets.DB_TEST_LINK}}
   ACCESS_TOKEN_SECRET: ${{secrets.ACCESS_TOKEN_SECRET}}
 
 jobs:
