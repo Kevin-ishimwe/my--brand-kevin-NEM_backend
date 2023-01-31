@@ -1,16 +1,24 @@
+const token = {
+  in: 'header',
+  name: 'token',
+  description: 'token',
+  type: 'apiKey',
+  required: true,
+  example: 'Bearer ',
+};
+const email_id = {
+  name: 'email',
+  in: 'path',
+  description: 'email of user',
+  required: true,
+  type: 'string',
+  example: '63bdbc1451a42f4d46319e77',
+};
+
 const listUser = {
   tags: ['users'],
   description: 'all users in dbs',
-  parameters: [
-    {
-      in: 'header',
-      name: 'token',
-      description: 'token',
-      type: 'apiKey',
-      required: true,
-      example: 'Bearer ',
-    },
-  ],
+  parameters: [token],
   responses: {
     200: {
       description: 'OK',
@@ -80,24 +88,7 @@ const login = {
 const updateuser = {
   tags: ['users'],
   description: 'update user in dbs',
-  parameters: [
-    {
-      name: 'email',
-      in: 'path',
-      description: 'email of user',
-      required: true,
-      type: 'string',
-      example: '63bdbc1451a42f4d46319e77',
-    },
-    {
-      in: 'header',
-      name: 'token',
-      description: 'token',
-      type: 'string',
-      required: true,
-      example: 'Bearer token',
-    },
-  ],
+  parameters: [email_id, token],
   requestBody: {
     content: {
       'application/json': {
@@ -136,24 +127,7 @@ const updateuser = {
 const deleteuser = {
   tags: ['users'],
   description: 'delete user from dbs',
-  parameters: [
-    {
-      name: 'email',
-      in: 'path',
-      description: 'email of user',
-      required: true,
-      type: 'string',
-      example: '63bdbc1451a42f4d46319e77',
-    },
-    {
-      in: 'header',
-      name: 'token',
-      description: 'token',
-      type: 'string',
-      required: true,
-      example: 'Bearer token',
-    },
-  ],
+  parameters: [email_id, token],
   responses: {
     200: {
       description: 'OK',
@@ -187,4 +161,4 @@ const userRouterDoc = {
     put: updateuser,
   },
 };
-export default( userRouterDoc)
+export default userRouterDoc;

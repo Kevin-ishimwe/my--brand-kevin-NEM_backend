@@ -1,16 +1,24 @@
+const idParams = {
+  name: 'id',
+  in: 'path',
+  description: 'blog id',
+  required: true,
+  type: 'string',
+  example: '63bdbc1451a42f4d46319e77',
+};
+const token = {
+  in: 'header',
+  name: 'token',
+  description: 'token',
+  type: 'string',
+  required: true,
+  example: 'Bearer token',
+};
+
 const listmessages = {
   tags: ['messages'],
   description: 'all messages in dbs',
-  parameters: [
-    {
-      in: 'header',
-      name: 'token',
-      description: 'token',
-      type: 'apiKey',
-      required: true,
-      example: 'Bearer ',
-    },
-  ],
+  parameters: [token],
   responses: {
     200: {
       description: 'OK',
@@ -24,7 +32,6 @@ const listmessages = {
                 name: 'test',
                 email: 'test@gmail.com',
                 content: 'my db trial',
-                __v: 0,
               },
             ],
           },
@@ -80,24 +87,7 @@ const addmessages = {
 const deletemessages = {
   tags: ['messages'],
   description: 'delete message from dbs',
-  parameters: [
-    {
-      name: 'id',
-      in: 'path',
-      description: 'message id',
-      required: true,
-      type: 'string',
-      example: '63bdbc1451a42f4d46319e77',
-    },
-    {
-      in: 'header',
-      name: 'token',
-      description: 'token',
-      type: 'string',
-      required: true,
-      example:'Bearer token'
-    },
-  ],
+  parameters: [idParams, token],
   responses: {
     200: {
       description: 'OK',
@@ -128,4 +118,4 @@ const messageRouterDoc = {
   },
 };
 
-export default (messageRouterDoc)
+export default messageRouterDoc;

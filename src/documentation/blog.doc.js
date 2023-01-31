@@ -1,7 +1,22 @@
+const idParams = {
+  name: 'id',
+  in: 'path',
+  description: 'blog id',
+  required: true,
+  type: 'string',
+  example: '63bdbc1451a42f4d46319e77',
+};
+const token = {
+  in: 'header',
+  name: 'token',
+  description: 'token',
+  type: 'string',
+  required: true,
+  example: 'Bearer token',
+};
 const listblogss = {
   tags: ['blogs'],
   description: 'all blogs in dbs',
-
   responses: {
     200: {
       description: 'OK',
@@ -33,16 +48,7 @@ const listblogss = {
 const singleblog = {
   tags: ['blogs'],
   description: 'read single blogs from dbs',
-  parameters: [
-    {
-      name: 'id',
-      in: 'path',
-      description: 'blog id',
-      required: true,
-      type: 'string',
-      example: '63bdbc1451a42f4d46319e77',
-    },
-  ],
+  parameters: [idParams],
   responses: {
     200: {
       description: 'OK',
@@ -60,17 +66,14 @@ const singleblog = {
               blogContent: 'hey balbel to es6 route test',
               blogImgId: 'gyxgby1ezwhuglvwyiny',
               comments: [
-               
                 {
                   _id: '63ca24fc7cfa30c82f6f0565',
                   blog: '63c92298ad493378dc71153f',
                   name: 'dieudonne',
                   comment: 'testing comment docs zoom',
                   date: '2023-01-20T05:19:09.000Z',
-                  __v: 0,
                 },
               ],
-              __v: 0,
             },
           },
         },
@@ -79,25 +82,10 @@ const singleblog = {
   },
 };
 
-
-
-
-
-
-
 const addblog = {
   tags: ['blogs'],
   description: 'all blogs in dbs',
-  parameters: [
-    {
-      in: 'header',
-      name: 'token',
-      description: 'token',
-      type: 'apiKey',
-      required: true,
-      example: 'Bearer ',
-    },
-  ],
+  parameters: [token],
   requestBody: {
     content: {
       'multipart/form-data': {
@@ -151,24 +139,7 @@ const addblog = {
 const deleteblog = {
   tags: ['blogs'],
   description: 'delete blog from dbs',
-  parameters: [
-    {
-      name: 'id',
-      in: 'path',
-      description: 'blog id',
-      required: true,
-      type: 'string',
-      example: '63bdbc1451a42f4d46319e77',
-    },
-    {
-      in: 'header',
-      name: 'token',
-      description: 'token',
-      type: 'string',
-      required: true,
-      example: 'Bearer token',
-    },
-  ],
+  parameters: [idParams, token],
   responses: {
     200: {
       description: 'OK',
@@ -189,24 +160,7 @@ const deleteblog = {
 const updateblog = {
   tags: ['blogs'],
   description: 'update this blog in dbs',
-  parameters: [
-    {
-      name: 'id',
-      in: 'path',
-      description: 'blog id',
-      required: true,
-      type: 'string',
-      example: '63bdbc1451a42f4d46319e77',
-    },
-    {
-      in: 'header',
-      name: 'token',
-      description: 'token',
-      type: 'string',
-      required: true,
-      example: 'Bearer token',
-    },
-  ],
+  parameters: [idParams, token],
   requestBody: {
     content: {
       'multipart/form-data': {
@@ -261,8 +215,8 @@ const blogRouterDoc = {
   '/getblogs': {
     get: listblogss,
   },
-   "/singleblog/{id}":{
-    get:singleblog
+  '/singleblog/{id}': {
+    get: singleblog,
   },
   '/addblog': {
     post: addblog,
@@ -275,4 +229,4 @@ const blogRouterDoc = {
   },
 };
 
-module.exports = blogRouterDoc;
+export default blogRouterDoc;
