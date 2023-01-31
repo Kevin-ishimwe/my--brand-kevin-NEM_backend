@@ -1,16 +1,23 @@
+const idParams = {
+  name: 'id',
+  in: 'path',
+  description: 'blog id',
+  required: true,
+  type: 'string',
+  example: '63bdbc1451a42f4d46319e77',
+};
+const token = {
+  in: 'header',
+  name: 'token',
+  description: 'token',
+  type: 'string',
+  required: true,
+  example: 'Bearer token',
+};
 const getcomments = {
   tags: ['comment'],
   description: 'get comments from dbs',
-  parameters: [
-    {
-      in: 'header',
-      name: 'token',
-      description: 'token',
-      type: 'string',
-      required: true,
-      example: 'Bearer token',
-    },
-  ],
+  parameters: [token],
   responses: {
     200: {
       description: 'OK',
@@ -38,16 +45,7 @@ const getcomments = {
 const addcomment = {
   tags: ['comment'],
   description: 'add comment into dbs',
-  parameters: [
-    {
-      name: 'id',
-      in: 'path',
-      description: 'message id',
-      required: true,
-      type: 'string',
-      example: '63bdbc1451a42f4d46319e77',
-    },
-  ],
+  parameters: [idParams],
   requestBody: {
     content: {
       'application/json': {
@@ -83,24 +81,7 @@ const addcomment = {
 const deletecomment = {
   tags: ['comment'],
   description: 'delet comment from dbs',
-  parameters: [
-    {
-      name: 'id',
-      in: 'path',
-      description: 'message id',
-      required: true,
-      type: 'string',
-      example: '63bdbc1451a42f4d46319e77',
-    },
-    {
-      in: 'header',
-      name: 'token',
-      description: 'token',
-      type: 'string',
-      required: true,
-      example: 'Bearer token',
-    },
-  ],
+  parameters: [idParams, token],
   responses: {
     200: {
       description: 'OK',
@@ -126,6 +107,5 @@ const commentRouterDoc = {
   '/getcomments': {
     get: getcomments,
   },
- 
 };
-export default (commentRouterDoc)
+export default commentRouterDoc;

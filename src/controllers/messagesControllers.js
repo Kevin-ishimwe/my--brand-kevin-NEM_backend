@@ -10,7 +10,6 @@ function getMessages(_req, res) {
 
 async function addMessages(req, res) {
   const { name, email, content } = req.body;
-  console.log(req.body);
   const message = new messageModel({
     name: name,
     email: email,
@@ -24,7 +23,6 @@ async function addMessages(req, res) {
   }
 }
 async function deleteMessage(req, res) {
-  console.log(req.params.id);
   try {
     await messageModel.findById({ _id: req.params.id }).deleteOne();
     res
