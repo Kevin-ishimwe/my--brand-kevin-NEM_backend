@@ -2,20 +2,18 @@ import messageModel from '../models/messsageSchema';
 
 function getMessages(_req, res) {
   messageModel.find({}, (err, data) => {
-    err
-      ? res.json({ error: err.message }).status(401)
-      : res.json(data).status(200);
+    res.json(data).status(200);
   });
 }
 
 async function addMessages(req, res) {
-  const { name, email, content } = req.body;
-  const message = new messageModel({
-    name: name,
-    email: email,
-    content: content,
-  });
   try {
+    const { name, email, content } = req.body;
+    const message = new messageModel({
+      name: name,
+      email: email,
+      content: content,
+    });
     await message.save();
     res.status(201).json({ message: 'message sent', status: 'success' });
   } catch (err) {
