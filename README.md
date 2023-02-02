@@ -2,7 +2,7 @@ this project was made using node ,mongodb,express,jwt
 as a backend for my portfolio
 
 # my--brand-kevin-NEM_backend 
-![check-code-coverage](https://img.shields.io/badge/code--coverage-82.25%25-green)[![Node.js Package](https://github.com/Kevin-ishimwe/my--brand-kevin-NEM_backend/actions/workflows/node-js.yml/badge.svg?branch=DEVELOP)](https://github.com/Kevin-ishimwe/my--brand-kevin-NEM_backend/actions/workflows/node-js.yml)[![Maintainability](https://api.codeclimate.com/v1/badges/672c53f58afff393e21e/maintainability)](https://codeclimate.com/github/Kevin-ishimwe/my--brand-kevin-NEM_backend/maintainability)
+![check-code-coverage](https://img.shields.io/badge/code--coverage-97.8%25-brightgreen)[![Node.js Package](https://github.com/Kevin-ishimwe/my--brand-kevin-NEM_backend/actions/workflows/node-js.yml/badge.svg?branch=DEVELOP)](https://github.com/Kevin-ishimwe/my--brand-kevin-NEM_backend/actions/workflows/node-js.yml)[![Maintainability](https://api.codeclimate.com/v1/badges/672c53f58afff393e21e/maintainability)](https://codeclimate.com/github/Kevin-ishimwe/my--brand-kevin-NEM_backend/maintainability)
 
 This project is an application skeleton for a typical
 

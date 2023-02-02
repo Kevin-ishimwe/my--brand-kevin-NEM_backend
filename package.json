@@ -10,7 +10,14 @@
     "test": "jest --coverage --verbose --forceExit  "
   },
   "jest": {
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "collectCoverage": true,
+    "coverageReporters": [
+      "json",
+      "html",
+      "lcov",
+      "json-summary"
+    ]
   },
   "keywords": [],
   "author": "",
