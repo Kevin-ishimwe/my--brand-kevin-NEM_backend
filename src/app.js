@@ -21,8 +21,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors(
 {
-  origin : http://127.0.0.1:5500/
-  credentials: true, // <= Accept credentials (cookies) sent by the client
+  origin : true,
+  credentials: true, 
 }));
 app.use(MessageRoutes);
 app.use(BlogRoutes);
