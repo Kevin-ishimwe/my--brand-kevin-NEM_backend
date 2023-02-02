@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import userModel from '../models/userSchema';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
@@ -13,7 +14,7 @@ async function addUser(req, res) {
       password: hashedPassword,
     });
     await user.save();
-    res.status(201).json(user);
+    res.status(201).json({ message: 'user created', status: 'success' });
   } catch (err) {
     res.status(400).json({ error: err.message.split(':')[2] });
   }
@@ -21,12 +22,12 @@ async function addUser(req, res) {
 function getUsers(req, res) {
   if (req.user) {
     userModel.find({}, (err, data) => {
-      err
-        ? res.status(401).json({ error: err.message })
-        : res.status(200).json(data);
+      res.status(200).json(data);
     });
   } else {
-    res.json({ error: 'not authorized to access data', status: 'failed' });
+    res
+      .status(401)
+      .json({ error: 'not authorized to access data', status: 'failed' });
   }
 }
 async function login(req, res) {
@@ -37,10 +38,14 @@ async function login(req, res) {
   } else {
     if (await bcrypt.compare(password, user[0].password)) {
       const accessToken = generateAuthtoken(email);
+      // eslint-disable-next-line no-unused-vars
       const refreshToken = jwt.sign(
         { email: email },
         process.env.REFRESH_TOKEN_SECRET
       );
+      res.cookie('token', refreshToken, {
+        httpOnly: true,
+      });
       res.status(200).setHeader('Set-Cookie', `token=${accessToken} `).json({
         message: `successfully loged in here is your access token`,
         token: accessToken,
@@ -94,22 +99,27 @@ async function updateUser(req, res) {
 function generateAuthtoken(email) {
   const accessToken = jwt.sign(
     { email: email },
-    process.env.ACCESS_TOKEN_SECRET
-    //  { expiresIn: '5min' }
+    process.env.ACCESS_TOKEN_SECRET,
+    { expiresIn: '2min' }
   );
   return accessToken;
 }
 
 function authenticateToken(req, res, next) {
   const authHeader = req.headers['token'];
-  const token = authHeader && authHeader.split(' ')[1];
+  let token;
+  if (process.env.NODE_ENV !== 'test') {
+    token = req.cookies.token;
+  } else {
+    token = authHeader && authHeader.split(' ')[1];
+  }
   if (token == null)
     return res
       .status(401)
       .json({ message: 'not authorized', status: 'failed' });
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
     if (err) {
-      res.status(401).json({ message: err.message, status: 'failed' });
+      res.status(400).json({ message: err.message, status: 'failed' });
     } else {
       req.user = user;
       next();
