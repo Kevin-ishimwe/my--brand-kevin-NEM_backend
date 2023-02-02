@@ -17,30 +17,23 @@ async function addComment(req, res) {
       .updateOne(
         { _id: req.params.id },
         { $addToSet: { comments: newComment } },
-        (err, _data) => {
-          err
-            ? res.status(401).json({ error: err.message })
-            : res
-                .status(200)
-                .json({ message: 'comment added', status: 'sucess' });
+        () => {
+          res.status(200).json({ message: 'comment added', status: 'sucess' });
         }
       )
       .clone();
   } catch (err) {
-    res.json({ message: err.message, status: 'failed' }).status(402);
+    res
+      .status(400)
+      .json({ message: err.message, status: 'failed' })
+      .status(402);
   }
 }
 //get comments priviledged
 function getComments(_req, res) {
-  try {
-    commentModel.find({}, (err, data) => {
-      err
-        ? res.status(401).json({ message: 'failed', status: 'failed' })
-        : res.status(200).json(data);
-    });
-  } catch (err) {
-    res.status(403).json({ message: err.message, status: 'failed' });
-  }
+  commentModel.find({}, (_err, data) => {
+    res.status(200).json(data);
+  });
 }
 //delete comment with this specific id
 
@@ -53,8 +46,4 @@ async function deleteComments(req, res) {
   }
 }
 
-export {
-  addComment,
-  getComments,
-  deleteComments,
-};
+export { addComment, getComments, deleteComments };
