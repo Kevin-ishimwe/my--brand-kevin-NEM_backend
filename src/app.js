@@ -19,7 +19,11 @@ app.use(
 app.use(cookieParser())
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+app.use(cors(
+{
+  origin : http://127.0.0.1:5500/
+  credentials: true, // <= Accept credentials (cookies) sent by the client
+}));
 app.use(MessageRoutes);
 app.use(BlogRoutes);
 app.use(userRoutes);
