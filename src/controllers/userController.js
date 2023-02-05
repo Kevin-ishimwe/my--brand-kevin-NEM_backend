@@ -48,7 +48,7 @@ async function login(req, res) {
       });
       res.status(200).setHeader('Set-Cookie', `token=${accessToken} `).json({
         message: `successfully loged in here is your access token`,
-        token: accessToken,
+        token: refreshToken,
         status: 'sucess',
       });
     } else {
