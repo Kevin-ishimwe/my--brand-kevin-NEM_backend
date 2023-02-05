@@ -107,12 +107,8 @@ function generateAuthtoken(email) {
 
 function authenticateToken(req, res, next) {
   const authHeader = req.headers['token'];
-  let token;
-  if (process.env.NODE_ENV !== 'test') {
-    token = req.cookies.token;
-  } else {
-    token = authHeader && authHeader.split(' ')[1];
-  }
+    const token = authHeader && authHeader.split(' ')[1];
+  
   if (token == null)
     return res
       .status(401)
