@@ -113,7 +113,7 @@ function authenticateToken(req, res, next) {
     return res
       .status(401)
       .json({ message: 'not authorized', status: 'failed' });
-  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+  jwt.verify(token, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
     if (err) {
       res.status(400).json({ message: err.message, status: 'failed' });
     } else {
