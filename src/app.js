@@ -29,7 +29,7 @@ app.use(
 );
 //for home page
 app.get('/', (req, res) => {
-  res.sendFile('home.html', { root: path.join(__dirname) });
+  res.sendFile('./home.html', { root: path.join(__dirname) });
 });
 app.use(MessageRoutes);
 app.use(BlogRoutes);
