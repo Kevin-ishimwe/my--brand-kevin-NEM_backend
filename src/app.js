@@ -28,8 +28,9 @@ app.use(
   })
 );
 //for home page
+app.use(express.static('../public'));
 app.get('/', (req, res) => {
-  res.sendFile('./home.html', { root: path.join(__dirname) });
+res.sendFile(path.join(__dirname, './public/home.html'));
 });
 app.use(MessageRoutes);
 app.use(BlogRoutes);
