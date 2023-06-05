@@ -1,0 +1,28 @@
+version: '3.9'
+
+services:
+  server:
+    container_name: portfolio_backend
+    image: portfolio-backend:0.0.1
+    build:
+      context: .
+    ports:
+      - 5000
+    environment:
+      DB_TEST_LINK: mongodb+srv://ishimwekevin:333Ha0bZBJq9OEzY@mybrandportfolio.qgke1dn.mongodb.net/MybrandPortfolio?retryWrites=true&w=majority
+
+    networks:
+      - shared-network
+    volumes:
+      - .:/app
+      - /app/node_modules
+    depends_on:
+      - db
+
+  db:
+    container_name: mongo_db
+    image: "mongo"
+volumes:
+  nps_data:
+networks:
+  shared-network:
