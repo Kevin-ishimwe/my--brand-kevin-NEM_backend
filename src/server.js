@@ -4,6 +4,10 @@ import dotenv from 'dotenv';
 //connecting to Mbd and lsiten to port through that
 dotenv.config();
 const hosted = process.env.DB_PRODUCTION_LINK;
+//for production use only
+const port = process.env.PORT || 1256;
+
+// Listen on `port` and 0.0.0.0
 
 mongoose.set('strictQuery', true);
 mongoose
@@ -11,7 +15,7 @@ mongoose
   .then(() => {
     if (process.env.NODE_ENV !== 'test') {
       try {
-        app.listen(1256, () => {
+        app.listen(port,"0.0.0.0",() => {
           console.log(' production server running');
           console.log('connected to production dbs');
         });

@@ -7,7 +7,9 @@
     "build": "babel src -d dist",
     "start": "node dist/server.js",
     "dev": "npm run build && nodemon --exec babel-node src/server.js",
-    "test": "jest --coverage --verbose --forceExit  "
+    "test": "jest --coverage --verbose --forceExit  ",
+    "docker:compose:up": "docker compose up",
+    "docker:compose:down": "docker compose down"
   },
   "jest": {
     "testEnvironment": "node",
