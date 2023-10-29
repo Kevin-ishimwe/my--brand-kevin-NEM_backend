@@ -66,7 +66,7 @@ following an MVC (Models, Routes, Controllers) architecture without serving stat
 DB_TEST_LINK=*mongodb dbs local link
 ACCESS_TOKEN_SECRET=*generate an access token
 REFRESH_TOKEN_SECRET=*generate an refresh token
-DB_PRODUCTION_LINK=mongodb+srv://ishimwekevin:333Ha0bZBJq9OEzY@mybrandportfolio.qgke1dn.mongodb.net/MybrandPortfolioProduction?retryWrites=true&w=majority
+DB_PRODUCTION_LINK=*link for production
 
 ```
 
