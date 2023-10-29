@@ -7,15 +7,15 @@
 
 This project is a meticulously engineered backend system that leverages a stack of industry-standard technologies to power and support my professional portfolio. The core components of this system include:
 
-    ###Node.js: The project relies on the asynchronous and event-driven architecture of Node.js, enabling high performance and scalability.
+Node.js: The project relies on the asynchronous and event-driven architecture of Node.js, enabling high performance and scalability.
 
-    ###MongoDB: MongoDB serves as the database management system, providing a flexible and schema-less data storage solution. It efficiently handles and organizes the data that drives the portfolio.
+MongoDB: MongoDB serves as the database management system, providing a flexible and schema-less data storage solution. It efficiently handles and organizes the data that drives the portfolio.
 
-    ###Express: The Express framework is used to build a robust and efficient API layer. It simplifies routing, middleware integration, and request handling, allowing for smooth and predictable API interactions.
+Express: The Express framework is used to build a robust and efficient API layer. It simplifies routing, middleware integration, and request handling, allowing for smooth and predictable API interactions.
 
-    ###JWT (JSON Web Tokens): To ensure secure authentication and authorization, JSON Web Tokens are employed. These tokens enable the project to securely manage user sessions and access control.
+JWT (JSON Web Tokens): To ensure secure authentication and authorization, JSON Web Tokens are employed. These tokens enable the project to securely manage user sessions and access control.
     
-# my--brand-kevin-NEM_backend 
+# backend_portfolio
 To get you started you can simply clone the repository:
 
 ```
