@@ -1,4 +1,7 @@
 ![Code Coverage](https://img.shields.io/badge/code--coverage-97.8%25-brightgreen)
+![GitHub Actions](https://github.com/Kevin-ishimwe/my--brand-kevin-NEM_backend/actions/workflows/node-js.yml/badge.svg?branch=DEVELOP)
+[![Maintainability](https://api.codeclimate.com/v1/badges/672c53f58afff393e21e/maintainability)](https://codeclimate.com/github/Kevin-ishimwe/my--brand-kevin-NEM_backend/maintainability)
+
 
 
 this project was made using node ,mongodb,express,jwt
