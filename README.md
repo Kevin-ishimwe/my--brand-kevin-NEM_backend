@@ -55,6 +55,7 @@ Open your terminal and navigate to your project's root directory. Then, run the 
 
 ```bash
 docker compose up
+```
 
 ### Project Structure
 
@@ -66,6 +67,7 @@ DB_TEST_LINK=*mongodb dbs local link
 ACCESS_TOKEN_SECRET=*generate an access token
 REFRESH_TOKEN_SECRET=*generate an refresh token
 DB_PRODUCTION_LINK=mongodb+srv://ishimwekevin:333Ha0bZBJq9OEzY@mybrandportfolio.qgke1dn.mongodb.net/MybrandPortfolioProduction?retryWrites=true&w=majority
+
 ```
 
 
