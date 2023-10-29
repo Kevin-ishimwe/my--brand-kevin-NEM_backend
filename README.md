@@ -37,7 +37,7 @@ The project is preconfigured with a development web server. The simplest way to 
 
 ### to access the API documentation
 
-    [http://localhost:1256/documentaion](http://localhost:1256/documentation/)
+[documentaion](http://localhost:1256/documentation/)
 
 ## Running the Project with Docker
 
