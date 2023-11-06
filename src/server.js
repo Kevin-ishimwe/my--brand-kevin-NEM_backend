@@ -15,8 +15,8 @@ mongoose
   .then(() => {
     if (process.env.NODE_ENV !== 'test') {
       try {
-        app.listen(port,"0.0.0.0",() => {
-          console.log(' production server running');
+        app.listen(port, '0.0.0.0', () => {
+          console.log(' production server running at http://localhost:1256/');
           console.log('connected to production dbs');
         });
       } catch (error) {
